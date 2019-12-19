@@ -6,7 +6,9 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURI);
+const errorHandler = error => error => console.log(error);
+mongoose.connect(keys.mongoURI).catch(errorHandler);
+mongoose.connection.on('error', errorHandler);
 
 const app = express();
 
